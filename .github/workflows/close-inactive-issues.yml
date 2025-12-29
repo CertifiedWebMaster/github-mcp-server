@@ -22,7 +22,7 @@ jobs:
           stale-issue-message: "This issue is stale because it has been open for ${{ env.PR_DAYS_BEFORE_STALE }} days with no activity. Leave a comment to avoid closing this issue in ${{ env.PR_DAYS_BEFORE_CLOSE }} days."
           close-issue-message: "This issue was closed because it has been inactive for ${{ env.PR_DAYS_BEFORE_CLOSE }} days since being marked as stale."
           days-before-pr-stale: ${{ env.PR_DAYS_BEFORE_STALE }}
-          days-before-pr-close: ${{ env.PR_DAYS_BEFORE_STALE }}
+          days-before-pr-close: ${{ env.PR_DAYS_BEFORE_CLOSE }}
           # Start with the oldest items first
           ascending: true
           repo-token: ${{ secrets.GITHUB_TOKEN }}
