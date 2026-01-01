@@ -30,10 +30,10 @@ jobs:
         run: |
           # Run conformance test, capture stdout for summary
           script/conformance-test > conformance-summary.txt 2>&1 || true
-          
+
           # Output the summary
           cat conformance-summary.txt
-          
+
           # Check result
           if grep -q "RESULT: ALL TESTS PASSED" conformance-summary.txt; then
             echo "status=passed" >> $GITHUB_OUTPUT
@@ -48,14 +48,14 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Comparing PR branch against merge-base with \`origin/main\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           # Extract and append the report content (skip the header since we added our own)
           tail -n +5 conformance-report/CONFORMANCE_REPORT.md >> $GITHUB_STEP_SUMMARY
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           # Add interpretation note
           if [ "${{ steps.conformance.outputs.status }}" = "passed" ]; then
             echo "✅ **All conformance tests passed** - No behavioral differences detected." >> $GITHUB_STEP_SUMMARY
