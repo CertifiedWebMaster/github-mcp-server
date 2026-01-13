@@ -23,6 +23,11 @@ steps:
     run: |
       go version
       BINDIR="$(git rev-parse --show-toplevel)"/bin
-      $BINDIR/golangci-lint --version
-      echo "Setup complete! Ready to build and test."
+      if [ -f "$BINDIR/golangci-lint" ]; then
+          $BINDIR/golangci-lint --version
+          echo "Setup complete! Ready to build and test."
+      else
+          echo "Error: golangci-lint installation failed"
+          exit 1
+      fi
     description: Verify Go and linting tools are properly installed
