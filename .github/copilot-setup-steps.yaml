@@ -1,0 +1,33 @@
+# GitHub Copilot Setup Steps
+# This file defines the environment setup steps that GitHub Copilot coding agent
+# should perform before working on tasks in this repository.
+
+name: Setup GitHub MCP Server Development Environment
+steps:
+  - name: Install Go dependencies
+    run: go mod download
+    description: Download all Go module dependencies required for the project
+
+  - name: Install golangci-lint
+    run: |
+      BINDIR="$(git rev-parse --show-toplevel)"/bin
+      BINARY=$BINDIR/golangci-lint
+      GOLANGCI_LINT_VERSION=v2.5.0
+      
+      if [ ! -f "$BINARY" ]; then
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s $GOLANGCI_LINT_VERSION
+      fi
+    description: Install golangci-lint v2.5.0 in bin/ directory (defaults to ./bin)
+
+  - name: Verify setup
+    run: |
+      go version
+      BINDIR="$(git rev-parse --show-toplevel)"/bin
+      if [ -f "$BINDIR/golangci-lint" ]; then
+          $BINDIR/golangci-lint --version
+          echo "Setup complete! Ready to build and test."
+      else
+          echo "Error: golangci-lint installation failed"
+          exit 1
+      fi
+    description: Verify Go and linting tools are properly installed
